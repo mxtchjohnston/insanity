@@ -32,16 +32,16 @@ export function CustomPortableText({
       },
     },
     types: {
-      image: ({
+      imageWithCaption: ({
         value,
       }: {
-        value: Image & { alt?: string; caption?: string }
+        value: {image: Image, caption?: string }
       }) => {
         return (
           <div className="my-6 space-y-2">
             <ImageBox
-              image={value}
-              alt={value.alt}
+              image={value.image}
+              alt={value.caption}
               classesWrapper="relative aspect-[16/9]"
             />
             {value?.caption && (

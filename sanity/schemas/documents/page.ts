@@ -85,33 +85,11 @@ export default defineType({
           type: 'timeline',
         }),
         defineField({
-          type: 'image',
+          type: 'reference',
           icon: ImageIcon,
-          name: 'image',
+          name: 'imageWithCaption',
           title: 'Image',
-          options: {
-            hotspot: true,
-          },
-          preview: {
-            select: {
-              imageUrl: 'asset.url',
-              title: 'caption',
-            },
-          },
-          fields: [
-            defineField({
-              title: 'Caption',
-              name: 'caption',
-              type: 'string',
-            }),
-            defineField({
-              name: 'alt',
-              type: 'string',
-              title: 'Alt text',
-              description:
-                'Alternative text for screenreaders. Falls back on caption if not set',
-            }),
-          ],
+          to: [{ type: 'imageWithCaption' }],
         }),
       ],
     }),
