@@ -64,3 +64,8 @@ export interface SettingsPayload {
   menuItems?: MenuItem[]
   ogImage?: Image
 }
+
+export interface ImageWithCaptionPayload {
+  image: Image
+  caption?: string
+}

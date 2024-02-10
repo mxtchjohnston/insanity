@@ -17,13 +17,18 @@ export const homePageQuery = groq`
 `
 
 export const pagesBySlugQuery = groq`
-  *[_type == "page" && slug.current == $slug][0] {
-    _id,
-    body,
-    overview,
-    title,
-    "slug": slug.current,
-  }
+*[_type == "page" && slug.current == $slug][0] {
+  _id,
+  body[]{
+    ...,
+    _type == 'imageWithCaption' => {
+      'image': *[ _id == ^._ref ][0]
+    }
+  },
+  overview,
+  title,
+  "slug": slug.current,
+}
 `
 
 export const projectBySlugQuery = groq`
@@ -52,3 +57,14 @@ export const settingsQuery = groq`
     ogImage,
   }
 `
+
+export const imageWithCaptionQuery =
+  groq`*[_id == $ref][0] {
+    image {
+      asset -> {
+        url,
+        metadata { dimensions }
+      },
+      caption
+    }
+  }`;

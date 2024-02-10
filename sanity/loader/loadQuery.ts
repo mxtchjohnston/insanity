@@ -6,6 +6,7 @@ import { draftMode } from 'next/headers'
 import { client } from '@/sanity/lib/client'
 import {
   homePageQuery,
+  imageWithCaptionQuery,
   pagesBySlugQuery,
   projectBySlugQuery,
   settingsQuery,
@@ -13,6 +14,7 @@ import {
 import { token } from '@/sanity/lib/token'
 import {
   HomePagePayload,
+  ImageWithCaptionPayload,
   PagePayload,
   ProjectPayload,
   SettingsPayload,
@@ -93,5 +95,13 @@ export function loadPage(slug: string) {
     pagesBySlugQuery,
     { slug },
     { next: { tags: [`page:${slug}`] } },
+  )
+}
+
+export function loadImageWithCaption(_ref: string) {
+  return loadQuery<ImageWithCaptionPayload | null>(
+    imageWithCaptionQuery,
+    { _ref },
+    { next: { tags: ['image'] } },
   )
 }

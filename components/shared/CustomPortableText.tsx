@@ -4,6 +4,8 @@ import { Image } from 'sanity'
 
 import ImageBox from '@/components/shared/ImageBox'
 import { TimelineSection } from '@/components/shared/TimelineSection'
+import { loadImageWithCaption } from '@/sanity/loader/loadQuery'
+import { ImageWithCaptionPayload } from '@/types'
 
 export function CustomPortableText({
   paragraphClasses,
@@ -32,16 +34,16 @@ export function CustomPortableText({
       },
     },
     types: {
-      imageWithCaption: ({
+      image: ({
         value,
       }: {
-        value: {image: Image, caption?: string }
+        value: Image & { alt?: string; caption?: string }
       }) => {
         return (
           <div className="my-6 space-y-2">
             <ImageBox
-              image={value.image}
-              alt={value.caption}
+              image={value}
+              alt={value.alt}
               classesWrapper="relative aspect-[16/9]"
             />
             {value?.caption && (
@@ -56,6 +58,18 @@ export function CustomPortableText({
         const { items } = value || {}
         return <TimelineSection timelines={items} />
       },
+      imageWithCaption: ({ value }) => {
+        console.log(value.image);
+        return (
+        <>
+          <ImageBox
+            image={value.image.asset}
+            alt={value.image.caption}
+            classesWrapper="relative aspect-[16/9]"
+          />
+        </>
+        )
+      }
     },
   }
 
